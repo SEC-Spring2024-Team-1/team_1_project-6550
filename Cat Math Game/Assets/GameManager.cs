@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public Text additionProblemText;
     public Button[] answerButtons;
     public GameObject pauseMenu; // Reference to the pause menu GameObject
+    public UIManager uiManager; // Reference to the UIManager
 
     private int operand1;
     private int operand2;
@@ -71,10 +72,12 @@ public class GameManager : MonoBehaviour
         {
             scoreManager.AddScore();
             Debug.Log("Correct answer! Score incremented.");
+            uiManager.ShowAnswerNotification(true); // Call UIManager to show correct notification
         }
         else
         {
             Debug.Log("Incorrect answer.");
+            uiManager.ShowAnswerNotification(false); // Call UIManager to show incorrect notification
         }
 
         GenerateAdditionProblem();
