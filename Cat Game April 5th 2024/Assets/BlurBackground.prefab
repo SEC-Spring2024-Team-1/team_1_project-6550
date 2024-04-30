@@ -109,3 +109,7 @@ MonoBehaviour:
   allCats: []
   HappyCat_0: {fileID: 0}
   SadCat_1: {fileID: 0}
+  backgroundMusic: {fileID: 0}
+  musicToggleButton: {fileID: 0}
+  musicOnSprite: {fileID: 0}
+  musicOffSprite: {fileID: 0}
