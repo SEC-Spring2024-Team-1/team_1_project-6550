@@ -6,11 +6,11 @@ using System.Collections;
 using TMPro;
 using System;
 using System.IO; // Added for file I/O
-using ClassLibrary1;
+using ClassLibrary1;//Implementing NUGET package for maths addition
 using System.Security.Cryptography;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Pcg;
+using Pcg;//Implementing NUGET package for random number generator
 
 public class MathGame : MonoBehaviour
 {
@@ -64,27 +64,12 @@ public class MathGame : MonoBehaviour
 
     void Start()
     {
-        randomGenerator = new PcgRandom(); // Initialize the PcgRandom generator 
-        //startTime = Time.time;
-        //InitializeCatsAtStartPositions();
+        randomGenerator = new PcgRandom(); // Initialize the PcgRandom generator from Nuget package
         InitializeCats();
         GenerateQuestion();
         UpdateMusicButtonSprite(); // Set the initial sprite and color of the button
 
     }
-
-
-
-    /* IEnumerator DelayBeforeNextQuestion()
-    {
-         yield return   new WaitForSeconds(0f); // Adjust the delay time as needed
-         // Generate the next question after the delay if the quiz is not completed and the game is not paused
-         if (!quizCompleted && !gamePaused)
-         {
-             GenerateQuestion();
-         }
-
-     } */
     void DisplayCatsForQuestion(int num1, int num2)
     {
         // Deactivate all cats initially
@@ -128,21 +113,15 @@ public class MathGame : MonoBehaviour
         {
             HappyCat_0.SetActive(false);
             SadCat_1.SetActive(false);
-            //ResetCatPositionsAndAnimations(); // Animation functionality 
             // Increment question counter
             questionCounter++;
 
-            // Generate random numbers for the addition question
-            int num1 = randomGenerator.Next(1, 6); // Generates a random number between 1 and 5 
-            int num2 = randomGenerator.Next(1, 3); // Generates a random number between 1 and 2
+            // Generate random numbers for the addition question from NuGet package
+            int num1 = randomGenerator.Next(1, 6); // Generates a random number between 1 and 6 
+            int num2 = randomGenerator.Next(1, 3); // Generates a random number between 1 and 3
 
-            
-            //int num1 = UnityEngine.Random.Range(1, 6); // Change the range as per your requirement
-            //int num2 = UnityEngine.Random.Range(1, 3);
-
-            //int answer = num1 + num2;
-            BasicMathsFunctions math = new BasicMathsFunctions(); // Instantiate BasicMathsFunctions from NuGet package
-            int answer = (int)math.Addition(num1, num2); // Call the Addition method and cast the result to int
+            BasicMathsFunctions math = new BasicMathsFunctions(); // Instantiate BasicMathsFunctions from NUGET package
+            int answer = (int)math.Addition(num1, num2); // Call the Addition method
 
             //DisplayCatsForQuestion(num1, num2);
             ActivateCats(num1, num2);
@@ -154,9 +133,7 @@ public class MathGame : MonoBehaviour
                 questionText.text = num1 + " + " + num2 + "= ?";
             }
             else
-            {
-                /*questionCounterText.text = ""; // Hide question counter after 3 questions
-                questionText.text = ""; //Hide question text after 3 questions*/
+            { 
                 quizCompleted = true;
                 LoadShowScoreScene();// Load the "showScore" scene
             }
@@ -176,10 +153,7 @@ public class MathGame : MonoBehaviour
                 {
                     answerButtons[i].gameObject.SetActive(true); // Show answer buttons for first 3 questions
                 }
-                /*else
-                {
-                    answerButtons[i].gameObject.SetActive(false); // Hide answer buttons after 3 questions
-                }*/
+               
 
                 if (i == correctButtonIndex)
                 {
@@ -230,7 +204,7 @@ public class MathGame : MonoBehaviour
                     Debug.LogError($"Error writing to file: {e.Message}");
                 }
 
-                // Code for user progress - written by Manish.
+                // Code for user progress
 
                 string currentDirectory1 = Application.persistentDataPath; // Assumes the code file is in the "Assets" directory
                 string filePath1 = Path.Combine(currentDirectory1, "userProgress.txt");
@@ -250,9 +224,6 @@ public class MathGame : MonoBehaviour
                 }
 
                 SendProgressData();
-
-                //LoadShowScoreScene(); // Load the "showScore" scene
-                //Moving it out of if block
             }
         }
     }
@@ -454,10 +425,7 @@ public class MathGame : MonoBehaviour
         yield return new WaitForSeconds(1.0f); // Wait for 2 seconds
         prompt.SetActive(false);
         GenerateQuestion();
-        //StartCoroutine(DelayBeforeNextQuestion()); // Call DelayBeforeNextQuestion after the delay
     }
-
-
 
 
     // Added animation functionality starts here 
