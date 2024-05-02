@@ -29,6 +29,8 @@ public class MathGame : MonoBehaviour
     public GameObject catContainer; // Animation Functionality: Assign this in the Inspector
     public AudioSource correctAnswerSound;
     public AudioSource wrongAnswerSound;
+    public AudioSource correctSound;
+    public AudioSource wrongSound;
     public GameObject[] allCats;
     public GameObject HappyCat_0;
     public GameObject SadCat_1;
@@ -268,6 +270,7 @@ public class MathGame : MonoBehaviour
         HighlightButton(correctButton, correctButtonColor);
         StartCoroutine(ShowPrompt(correctAnswerPrompt));
         correctAnswerSound.Play();
+        correctSound.Play();
         buttonsRespondingToInput = false; // Disable further button input
         HappyCat_0.SetActive(true);
     }
@@ -282,6 +285,7 @@ public class MathGame : MonoBehaviour
         HighlightButton(incorrectButton, incorrectButtonColor);
         StartCoroutine(ShowPrompt(wrongAnswerPrompt));
         wrongAnswerSound.Play();
+        wrongSound.Play();
         buttonsRespondingToInput = false; // Disable further button input
         SadCat_1.SetActive(true);
     }
