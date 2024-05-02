@@ -1703,7 +1703,6 @@ GameObject:
   - component: {fileID: 391487425}
   - component: {fileID: 391487424}
   - component: {fileID: 391487423}
-  - component: {fileID: 391487427}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1800,76 +1799,6 @@ Canvas:
   m_SortingLayerID: 653932457
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &391487427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 391487420}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93348c7cb880524482229296f414cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 1139285901}
-  answerButtons: []
-  questionCounterText: {fileID: 1816113578}
-  Blurbackground: {fileID: 8214538779224951479, guid: 89bfcd90c82e440dcbd0c45280dbd79f, type: 3}
-  pauseMenu: {fileID: 243751007}
-  correctAnswerPrompt: {fileID: 948464881}
-  wrongAnswerPrompt: {fileID: 1685098776}
-  problemQuestionCanvas: {fileID: 1139285900}
-  catUnits:
-  - {fileID: 374611472}
-  - {fileID: 1800525738}
-  - {fileID: 1796615384}
-  - {fileID: 530621870}
-  - {fileID: 2113616154}
-  - {fileID: 1972283697}
-  - {fileID: 1350863066}
-  - {fileID: 598221345}
-  - {fileID: 421673961}
-  - {fileID: 1179417727}
-  - {fileID: 1809776336}
-  - {fileID: 324694254}
-  startPositions:
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  targetPositions:
-  - {x: -675, y: 908, z: 10}
-  - {x: -232, y: 908, z: 10}
-  - {x: 225, y: 908, z: 10}
-  - {x: 674, y: 908, z: 10}
-  - {x: -675, y: 214, z: 10}
-  - {x: -232, y: 214, z: 10}
-  - {x: 225, y: 214, z: 10}
-  - {x: 674, y: 214, z: 10}
-  - {x: -675, y: -475, z: 10}
-  - {x: -232, y: -475, z: 10}
-  - {x: 225, y: -475, z: 10}
-  - {x: 674, y: -475, z: 10}
-  speed: 160
-  catContainer: {fileID: 326692210}
-  correctAnswerSound: {fileID: 561539283}
-  wrongAnswerSound: {fileID: 749203213}
-  allCats: []
-  HappyCat_0: {fileID: 0}
-  SadCat_1: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  musicToggleButton: {fileID: 0}
-  musicOnSprite: {fileID: 0}
-  musicOffSprite: {fileID: 0}
 --- !u!1 &421673961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3722,7 +3651,6 @@ GameObject:
   - component: {fileID: 1139285904}
   - component: {fileID: 1139285903}
   - component: {fileID: 1139285901}
-  - component: {fileID: 1139285902}
   m_Layer: 5
   m_Name: ProblemQuestion
   m_TagString: Untagged
@@ -3764,79 +3692,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Addition Problem Text
---- !u!114 &1139285902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1139285900}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93348c7cb880524482229296f414cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 1139285901}
-  answerButtons:
-  - {fileID: 2014758647}
-  - {fileID: 1324368087}
-  - {fileID: 1866156231}
-  questionCounterText: {fileID: 1816113578}
-  Blurbackground: {fileID: 1969825390}
-  pauseMenu: {fileID: 243751007}
-  correctAnswerPrompt: {fileID: 948464881}
-  wrongAnswerPrompt: {fileID: 1685098776}
-  problemQuestionCanvas: {fileID: 1139285900}
-  catUnits:
-  - {fileID: 374611472}
-  - {fileID: 1800525738}
-  - {fileID: 1796615384}
-  - {fileID: 530621870}
-  - {fileID: 2113616154}
-  - {fileID: 1972283697}
-  - {fileID: 1350863066}
-  - {fileID: 598221345}
-  - {fileID: 421673961}
-  - {fileID: 1179417727}
-  - {fileID: 1809776336}
-  - {fileID: 324694254}
-  startPositions:
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  targetPositions:
-  - {x: -675, y: 908, z: 10}
-  - {x: -232, y: 908, z: 10}
-  - {x: 225, y: 908, z: 10}
-  - {x: 674, y: 908, z: 10}
-  - {x: -675, y: 214, z: 10}
-  - {x: -232, y: 214, z: 10}
-  - {x: 225, y: 214, z: 10}
-  - {x: 674, y: 214, z: 10}
-  - {x: -675, y: -475, z: 10}
-  - {x: -232, y: -475, z: 10}
-  - {x: 225, y: -475, z: 10}
-  - {x: 674, y: -475, z: 10}
-  speed: 160
-  catContainer: {fileID: 326692210}
-  correctAnswerSound: {fileID: 561539283}
-  wrongAnswerSound: {fileID: 749203213}
-  allCats: []
-  HappyCat_0: {fileID: 0}
-  SadCat_1: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  musicToggleButton: {fileID: 0}
-  musicOnSprite: {fileID: 0}
-  musicOffSprite: {fileID: 0}
 --- !u!222 &1139285903
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4742,7 +4597,6 @@ GameObject:
   - component: {fileID: 1324368089}
   - component: {fileID: 1324368088}
   - component: {fileID: 1324368087}
-  - component: {fileID: 1324368086}
   m_Layer: 5
   m_Name: Button (Legacy) (2)
   m_TagString: Untagged
@@ -4770,79 +4624,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 125}
   m_SizeDelta: {x: 250.3307, y: 150.1659}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1324368086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324368084}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93348c7cb880524482229296f414cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 1139285901}
-  answerButtons:
-  - {fileID: 2014758647}
-  - {fileID: 1324368087}
-  - {fileID: 1866156231}
-  questionCounterText: {fileID: 1816113578}
-  Blurbackground: {fileID: 8214538779224951479, guid: 89bfcd90c82e440dcbd0c45280dbd79f, type: 3}
-  pauseMenu: {fileID: 243751007}
-  correctAnswerPrompt: {fileID: 948464881}
-  wrongAnswerPrompt: {fileID: 1685098776}
-  problemQuestionCanvas: {fileID: 1139285900}
-  catUnits:
-  - {fileID: 374611472}
-  - {fileID: 1800525738}
-  - {fileID: 1796615384}
-  - {fileID: 530621870}
-  - {fileID: 2113616154}
-  - {fileID: 1972283697}
-  - {fileID: 1350863066}
-  - {fileID: 598221345}
-  - {fileID: 421673961}
-  - {fileID: 1179417727}
-  - {fileID: 1809776336}
-  - {fileID: 324694254}
-  startPositions:
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  targetPositions:
-  - {x: -675, y: 908, z: 10}
-  - {x: -232, y: 908, z: 10}
-  - {x: 225, y: 908, z: 10}
-  - {x: 674, y: 908, z: 10}
-  - {x: -675, y: 214, z: 10}
-  - {x: -232, y: 214, z: 10}
-  - {x: 225, y: 214, z: 10}
-  - {x: 674, y: 214, z: 10}
-  - {x: -675, y: -475, z: 10}
-  - {x: -232, y: -475, z: 10}
-  - {x: 225, y: -475, z: 10}
-  - {x: 674, y: -475, z: 10}
-  speed: 160
-  catContainer: {fileID: 326692210}
-  correctAnswerSound: {fileID: 561539283}
-  wrongAnswerSound: {fileID: 749203213}
-  allCats: []
-  HappyCat_0: {fileID: 0}
-  SadCat_1: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  musicToggleButton: {fileID: 0}
-  musicOnSprite: {fileID: 0}
-  musicOffSprite: {fileID: 0}
 --- !u!114 &1324368087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4887,7 +4668,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 391487427}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: CheckAnswer
         m_Mode: 2
@@ -6584,7 +6365,6 @@ GameObject:
   - component: {fileID: 1816113576}
   - component: {fileID: 1816113579}
   - component: {fileID: 1816113578}
-  - component: {fileID: 1816113580}
   m_Layer: 5
   m_Name: ScoreCounter
   m_TagString: Untagged
@@ -6653,79 +6433,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1816113575}
   m_CullTransparentMesh: 1
---- !u!114 &1816113580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1816113575}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93348c7cb880524482229296f414cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 1139285901}
-  answerButtons:
-  - {fileID: 2014758647}
-  - {fileID: 1324368087}
-  - {fileID: 1866156231}
-  questionCounterText: {fileID: 1816113578}
-  Blurbackground: {fileID: 8214538779224951479, guid: 89bfcd90c82e440dcbd0c45280dbd79f, type: 3}
-  pauseMenu: {fileID: 243751007}
-  correctAnswerPrompt: {fileID: 948464881}
-  wrongAnswerPrompt: {fileID: 1685098776}
-  problemQuestionCanvas: {fileID: 0}
-  catUnits:
-  - {fileID: 374611472}
-  - {fileID: 1800525738}
-  - {fileID: 1796615384}
-  - {fileID: 530621870}
-  - {fileID: 2113616154}
-  - {fileID: 1972283697}
-  - {fileID: 1350863066}
-  - {fileID: 598221345}
-  - {fileID: 421673961}
-  - {fileID: 1179417727}
-  - {fileID: 1809776336}
-  - {fileID: 324694254}
-  startPositions:
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  targetPositions:
-  - {x: -675, y: 908, z: 10}
-  - {x: -232, y: 908, z: 10}
-  - {x: 225, y: 908, z: 10}
-  - {x: 674, y: 908, z: 10}
-  - {x: -675, y: 214, z: 10}
-  - {x: -232, y: 214, z: 10}
-  - {x: 225, y: 214, z: 10}
-  - {x: 674, y: 214, z: 10}
-  - {x: -675, y: -475, z: 10}
-  - {x: -232, y: -475, z: 10}
-  - {x: 225, y: -475, z: 10}
-  - {x: 674, y: -475, z: 10}
-  speed: 160
-  catContainer: {fileID: 326692210}
-  correctAnswerSound: {fileID: 561539283}
-  wrongAnswerSound: {fileID: 749203213}
-  allCats: []
-  HappyCat_0: {fileID: 0}
-  SadCat_1: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  musicToggleButton: {fileID: 0}
-  musicOnSprite: {fileID: 0}
-  musicOffSprite: {fileID: 0}
 --- !u!1 &1843884174
 GameObject:
   m_ObjectHideFlags: 0
@@ -6817,7 +6524,6 @@ GameObject:
   - component: {fileID: 1866156233}
   - component: {fileID: 1866156232}
   - component: {fileID: 1866156231}
-  - component: {fileID: 1866156230}
   m_Layer: 5
   m_Name: Button (Legacy) (1)
   m_TagString: Untagged
@@ -6845,79 +6551,6 @@ RectTransform:
   m_AnchoredPosition: {x: -75, y: 125}
   m_SizeDelta: {x: 249.19287, y: 150.2541}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1866156230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1866156228}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93348c7cb880524482229296f414cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 1139285901}
-  answerButtons:
-  - {fileID: 2014758647}
-  - {fileID: 1324368087}
-  - {fileID: 1866156231}
-  questionCounterText: {fileID: 1816113578}
-  Blurbackground: {fileID: 8214538779224951479, guid: 89bfcd90c82e440dcbd0c45280dbd79f, type: 3}
-  pauseMenu: {fileID: 243751007}
-  correctAnswerPrompt: {fileID: 948464881}
-  wrongAnswerPrompt: {fileID: 1685098776}
-  problemQuestionCanvas: {fileID: 1139285900}
-  catUnits:
-  - {fileID: 374611472}
-  - {fileID: 1800525738}
-  - {fileID: 1796615384}
-  - {fileID: 530621870}
-  - {fileID: 2113616154}
-  - {fileID: 1972283697}
-  - {fileID: 1350863066}
-  - {fileID: 598221345}
-  - {fileID: 421673961}
-  - {fileID: 1179417727}
-  - {fileID: 1809776336}
-  - {fileID: 324694254}
-  startPositions:
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  targetPositions:
-  - {x: -675, y: 908, z: 10}
-  - {x: -232, y: 908, z: 10}
-  - {x: 225, y: 908, z: 10}
-  - {x: 674, y: 908, z: 10}
-  - {x: -675, y: 214, z: 10}
-  - {x: -232, y: 214, z: 10}
-  - {x: 225, y: 214, z: 10}
-  - {x: 674, y: 214, z: 10}
-  - {x: -675, y: -475, z: 10}
-  - {x: -232, y: -475, z: 10}
-  - {x: 225, y: -475, z: 10}
-  - {x: 674, y: -475, z: 10}
-  speed: 160
-  catContainer: {fileID: 326692210}
-  correctAnswerSound: {fileID: 561539283}
-  wrongAnswerSound: {fileID: 749203213}
-  allCats: []
-  HappyCat_0: {fileID: 0}
-  SadCat_1: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  musicToggleButton: {fileID: 0}
-  musicOnSprite: {fileID: 0}
-  musicOffSprite: {fileID: 0}
 --- !u!114 &1866156231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6962,7 +6595,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 391487427}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: CheckAnswer
         m_Mode: 2
@@ -7581,7 +7214,6 @@ GameObject:
   - component: {fileID: 2014758649}
   - component: {fileID: 2014758648}
   - component: {fileID: 2014758647}
-  - component: {fileID: 2014758646}
   m_Layer: 5
   m_Name: Button (Legacy)
   m_TagString: Untagged
@@ -7609,79 +7241,6 @@ RectTransform:
   m_AnchoredPosition: {x: 75, y: 125}
   m_SizeDelta: {x: 250.92761, y: 144.2402}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2014758646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2014758644}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e93348c7cb880524482229296f414cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  questionText: {fileID: 1139285901}
-  answerButtons:
-  - {fileID: 2014758647}
-  - {fileID: 1324368087}
-  - {fileID: 1866156231}
-  questionCounterText: {fileID: 1816113578}
-  Blurbackground: {fileID: 8214538779224951479, guid: 89bfcd90c82e440dcbd0c45280dbd79f, type: 3}
-  pauseMenu: {fileID: 243751007}
-  correctAnswerPrompt: {fileID: 948464881}
-  wrongAnswerPrompt: {fileID: 1685098776}
-  problemQuestionCanvas: {fileID: 1139285900}
-  catUnits:
-  - {fileID: 374611472}
-  - {fileID: 1800525738}
-  - {fileID: 1796615384}
-  - {fileID: 530621870}
-  - {fileID: 2113616154}
-  - {fileID: 1972283697}
-  - {fileID: 1350863066}
-  - {fileID: 598221345}
-  - {fileID: 421673961}
-  - {fileID: 1179417727}
-  - {fileID: 1809776336}
-  - {fileID: 324694254}
-  startPositions:
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  - {x: 1280, y: 57.558395, z: 10}
-  targetPositions:
-  - {x: -675, y: 908, z: 10}
-  - {x: -232, y: 908, z: 10}
-  - {x: 225, y: 908, z: 10}
-  - {x: 674, y: 908, z: 10}
-  - {x: -675, y: 214, z: 10}
-  - {x: -232, y: 214, z: 10}
-  - {x: 225, y: 214, z: 10}
-  - {x: 674, y: 214, z: 10}
-  - {x: -675, y: -475, z: 10}
-  - {x: -232, y: -475, z: 10}
-  - {x: 225, y: -475, z: 10}
-  - {x: 674, y: -475, z: 10}
-  speed: 160
-  catContainer: {fileID: 326692210}
-  correctAnswerSound: {fileID: 561539283}
-  wrongAnswerSound: {fileID: 749203213}
-  allCats: []
-  HappyCat_0: {fileID: 0}
-  SadCat_1: {fileID: 0}
-  backgroundMusic: {fileID: 0}
-  musicToggleButton: {fileID: 0}
-  musicOnSprite: {fileID: 0}
-  musicOffSprite: {fileID: 0}
 --- !u!114 &2014758647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7726,7 +7285,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 391487427}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: CheckAnswer
         m_Mode: 2

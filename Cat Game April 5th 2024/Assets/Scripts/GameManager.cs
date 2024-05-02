@@ -44,7 +44,7 @@ public class MathGame : MonoBehaviour
     private bool quizCompleted = false;
     private bool gamePaused = false; // Add variable to track game pause state
     private int correctAnswers = 0;
-    private int totalQuestions = 5;
+    private int totalQuestions = 15;
     private float rate;
     private float accuracy;
     private float startTime;
