@@ -64,6 +64,11 @@ public class MathGame : MonoBehaviour
     private bool isMusicOn = true; // Flag to track if music is currently playing
     private float audioPausedTime; // Time at which audio was paused
 
+    // Array to hold the prerecorded voice clips for numbers 0 through 6, 'plus', and 'equals'
+    public AudioSource[] numberAudioSources;
+    private bool answerSelected = false; // Flag variable to indicate whether an answer has been selected
+
+
     void Start()
     {
         randomGenerator = new PcgRandom(); // Initialize the PcgRandom generator from Nuget package
@@ -133,6 +138,11 @@ public class MathGame : MonoBehaviour
                 questionCounterText.text = $"{questionCounter} / {totalQuestions}";
                 // Display the question
                 questionText.text = num1 + " + " + num2 + "= ?";
+
+                answerSelected = false; // reset flag variable after every answer
+
+                // Example: Play audio for numbers num1 and num2
+                PlayMathQuestionAudio(num1, num2);
             }
             else
             { 
@@ -268,6 +278,8 @@ public class MathGame : MonoBehaviour
         Debug.Log("Correct!");
         correctAnswers++;
         HighlightButton(correctButton, correctButtonColor);
+        // Stop the prerecorded clip for the addition question when the player selects an answer
+        AnswerSelected();
         StartCoroutine(ShowPrompt(correctAnswerPrompt));
         correctAnswerSound.Play();
         correctSound.Play();
@@ -283,6 +295,8 @@ public class MathGame : MonoBehaviour
         HighlightButton(correctButton, correctButtonColor);
         Button incorrectButton = (Button)UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
         HighlightButton(incorrectButton, incorrectButtonColor);
+        // Stop the prerecorded clip for the addition question when the player selects an answer
+        AnswerSelected();
         StartCoroutine(ShowPrompt(wrongAnswerPrompt));
         wrongAnswerSound.Play();
         wrongSound.Play();
@@ -613,5 +627,63 @@ public class MathGame : MonoBehaviour
     void UpdateMusicButtonSprite()
     {
         musicToggleButton.image.sprite = isMusicOn ? musicOnSprite : musicOffSprite;
+    }
+    private void PlayMathQuestionAudio(int num1, int num2)
+    {
+        List<AudioSource> audioSources = new List<AudioSource>();
+
+        // Add number audio sources
+        audioSources.Add(GetNumberAudioSource(num1 - 1));
+        audioSources.Add(numberAudioSources[6]); // 'plus'
+        audioSources.Add(GetNumberAudioSource(num2 - 1));
+        audioSources.Add(numberAudioSources[7]); // 'equals'
+
+        // Start coroutine to play audio sources in sequence
+        StartCoroutine(PlayAudioSourcesInSequence(audioSources.ToArray()));
+    }
+
+    // Coroutine to play audio sources in sequence
+    private IEnumerator PlayAudioSourcesInSequence(AudioSource[] audioSources)
+    {
+        foreach (AudioSource audioSource in audioSources)
+        {
+            if (answerSelected)
+            {
+                // If an answer has been selected, break out of the loop
+                break;
+            }
+
+            if (audioSource != null && audioSource.clip != null)
+            {
+                audioSource.Play();
+                while (audioSource.isPlaying)
+                {
+                    yield return null;
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Invalid AudioSource or AudioClip detected.");
+            }
+        }
+    }
+
+    // Helper method to get AudioSource for numbers 0 through 6
+    private AudioSource GetNumberAudioSource(int number)
+    {
+        if (number >= 0 && number <= 6)
+        {
+            return numberAudioSources[number];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    // Method to set the answer selected flag
+    public void AnswerSelected()
+    {
+        answerSelected = true;
     }
 }
