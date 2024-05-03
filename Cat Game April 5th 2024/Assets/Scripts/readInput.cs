@@ -47,8 +47,8 @@ public class readInput : MonoBehaviour
 
     private async Task SendDataToAPI()
     {
-        string code = "TIW2z6W5irePx4PwY0CHfxh_JfDnX_4uwWzrdy57jpmNAzFunro6UQ==";
-        string url = $"https://test1-mathgame.azurewebsites.net/api/game/create?code={code}&device_id={deviceID}&username={input}";
+        string code = "JxhjZHx_aKZsMmul6hr5NyxikZoxw-4M2uHi4VRD0ke_AzFuJ0rrXQ==&clientId=default";
+        string url = $"https://mathgame0305.azurewebsites.net/api/game/create?code={code}&device_id={deviceID}&username={input}";
 
         using (HttpClient client = new HttpClient())
         {

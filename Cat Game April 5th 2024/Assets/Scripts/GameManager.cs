@@ -243,8 +243,8 @@ public class MathGame : MonoBehaviour
     private async Task SendProgressData()
     {
         string deviceID = SystemInfo.deviceUniqueIdentifier;
-        string code = "tAyYdMOMtdfKtuFfjrEpaO_bsqRM6JcCtDGpB3VRFV6OAzFujEw6fw==";
-        string url = $"https://test1-mathgame.azurewebsites.net/api/game/progress?code={code}&device_id={deviceID}&username={userName}&questions={totalQuestions}&correct_answers={correctAnswers}&accuracy={accuracy:F2}&rate={rate:F2}";
+        string code = "JxhjZHx_aKZsMmul6hr5NyxikZoxw-4M2uHi4VRD0ke_AzFuJ0rrXQ==&clientId=default";
+        string url = $"https://mathgame0305.azurewebsites.net/api/game/progress?code={code}&device_id={deviceID}&username={userName}&questions={totalQuestions}&correct_answers={correctAnswers}&accuracy={accuracy:F2}&rate={rate:F2}";
 
         using (HttpClient client = new HttpClient())
         {
