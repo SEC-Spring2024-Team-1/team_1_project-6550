@@ -10,12 +10,14 @@ using TMPro;
 // on the score screen
 public class DisplayLastFiveScores : MonoBehaviour
 {
-    public TextMeshProUGUI scoreTableText; //To host the score text onto a panel. Removed, but left for reference
-    public TextMeshProUGUI showName; //Will output the name of the current user
-    public TextMeshProUGUI showCorrectAnswers; //Will output the correct answer amount from last 5 games
-    public TextMeshProUGUI showAccuracy; //Will output the accuracy percentage from last 5 games
-    public TextMeshProUGUI showRate; //Will output the user answering rate from last 5 games
-    private string userName; //user name variable passed around in this script for functions
+    public TextMeshProUGUI scoreTableText;
+    public TextMeshProUGUI showName;
+    public TextMeshProUGUI showCorrectAnswers;
+    public TextMeshProUGUI showAccuracy;
+    public TextMeshProUGUI showRate;
+    private string userName;
+    private List<string[]> matchingData;
+
 
     //Begin displaying last 5 scores for current user
     private void Start()
@@ -43,16 +45,31 @@ public class DisplayLastFiveScores : MonoBehaviour
             //Lists all lines in progress .txt file
             var lines = File.ReadAllLines(filePath);
 
-            // - uncomment if data needs to be filtered by userName and deviceId
-            var matchingData = lines
-            .Select(line => line.Split(',')) //split rows by using comma as seperator
-            .Where(data => data.Length > 2 && data[0].Trim() == deviceID && data[1].Trim() == userName) //searches for matching username
-            .Reverse() // Reverse to get the last entries first
-            .Take(5) // Take only the last 5 entries
-            .Reverse() // Reverse again to display them in the original order
-            .ToList();
-            
-            //uncomment if name filtering doesn't need to occur
+
+            if (userName == "KittenMath")
+            {
+                matchingData = lines
+                .Select(line => line.Split(','))
+                .Where(data => data.Length > 1 && data[0].Trim() == deviceID)
+                .Reverse() // Reverse to get the last entries first
+                .Take(5) // Take only the last 5 entries
+                .Reverse() // Reverse again to display them in the original order
+                .ToList();
+            }
+            else
+            {
+
+                // - uncomment if data needs to be filtered by userName and deviceId
+                matchingData = lines
+                .Select(line => line.Split(','))
+                .Where(data => data.Length > 2 && data[0].Trim() == deviceID && data[1].Trim() == userName)
+                .Reverse() // Reverse to get the last entries first
+                .Take(5) // Take only the last 5 entries
+                .Reverse() // Reverse again to display them in the original order
+                .ToList();
+            }
+
+
             /*
             var matchingData = lines
             .Select(line => line.Split(','))
@@ -77,10 +94,10 @@ public class DisplayLastFiveScores : MonoBehaviour
                 foreach (var record in matchingData)
                 {
                     // scoreTableText.text += $"{record[2]} | {record[3]}% | {record[4]}/min\n";
-                    Debug.Log("records: "+record[3]);
-                    showCorrectAnswers.text += $"{record[3]}\n"; //output correct answer
-                    showAccuracy.text += $"{record[4]}%\n"; // output accuracy percentage
-                    showRate.text += $"{record[5]}/min\n"; // output rate 
+                    Debug.Log("records: " + record[3]);
+                    showCorrectAnswers.text += $"{record[3]}\n";
+                    showAccuracy.text += $"{record[4]}%\n";
+                    showRate.text += $"{record[5]}/min\n";
                 }
             }
             //If record for current user is not found for any reason
@@ -108,7 +125,7 @@ public class DisplayLastFiveScores : MonoBehaviour
         if (File.Exists(filePath))
         {
             string[] lines = File.ReadAllLines(filePath);
-            Debug.Log("Lines from userProfile: "+lines);
+            Debug.Log("Lines from userProfile: " + lines);
 
             // Iterate through the file from the end using a reverse for loop
             for (int i = lines.Length - 1; i >= 0; i--)
@@ -124,7 +141,7 @@ public class DisplayLastFiveScores : MonoBehaviour
                 }
             }
 
-            Debug.Log("User name found in getProgress: "+userName);
+            Debug.Log("User name found in getProgress: " + userName);
         }
         else
         {
