@@ -10,13 +10,13 @@ using TMPro;
 // on the score screen
 public class DisplayLastFiveScores : MonoBehaviour
 {
-    public TextMeshProUGUI scoreTableText;
-    public TextMeshProUGUI showName;
-    public TextMeshProUGUI showCorrectAnswers;
-    public TextMeshProUGUI showAccuracy;
-    public TextMeshProUGUI showRate;
-    private string userName;
-    private List<string[]> matchingData;
+    public TextMeshProUGUI scoreTableText;      //To host the score text onto a panel.
+    public TextMeshProUGUI showName;            //Will output the name of the current user
+    public TextMeshProUGUI showCorrectAnswers;  //Will output the correct answer amount from last 5 games
+    public TextMeshProUGUI showAccuracy;        //Outputs accuracy percentage
+    public TextMeshProUGUI showRate;            //Outputs rate of questions answered
+    private string userName; //Current user name
+    private List<string[]> matchingData; //Holds line from .txt files for searching
 
 
     //Begin displaying last 5 scores for current user
