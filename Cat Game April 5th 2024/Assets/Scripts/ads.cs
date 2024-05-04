@@ -3,6 +3,9 @@ using UnityEngine.UI;
 using GoogleMobileAds.Api;
 using System;
 
+
+//Original ad script used in the game
+//Has been removed an replaced with ad manager, but still kept here for reference
 public class GoogleMobileAdsDemoScript : MonoBehaviour
 {
     public Button button; // Reference to the button component
@@ -14,12 +17,9 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
         {
             CreateBannerView();
             LoadAd();
-
-
-            // This callback is called once the MobileAds SDK is initialized.
         });
 
-        button.gameObject.SetActive(true);
+        button.gameObject.SetActive(true); //Make close ad button appear AFTER ad is initialized
 
         // Add listener to the button click event
         button.onClick.AddListener(OnButtonClick);
@@ -34,7 +34,7 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
     private string _adUnitId = "unused";
 #endif
 
-    BannerView _bannerView;
+    BannerView _bannerView; //The banner view variable at the bottom of the screen
 
     /// <summary>
     /// Creates a 320x50 banner view at top of the screen.
@@ -55,9 +55,8 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
         ListenToAdEvents();
     }
 
-    /// <summary>
+
     /// Creates the banner view and loads a banner ad.
-    /// </summary>
     public void LoadAd()
     {
         // create an instance of a banner view first.
@@ -74,51 +73,56 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
         _bannerView.LoadAd(adRequest);
     }
 
-    /// <summary>
+
     /// listen to events the banner view may raise.
-    /// </summary>
     private void ListenToAdEvents()
     {
         // Event listeners for banner view events
+        //On successful ad load
         _bannerView.OnBannerAdLoaded += () =>
         {
             Debug.Log("Banner view loaded an ad with response : "
                 + _bannerView.GetResponseInfo());
         };
+        // If ad load is unsuccessful
         _bannerView.OnBannerAdLoadFailed += (LoadAdError error) =>
         {
             Debug.LogError("Banner view failed to load an ad with error : "
                 + error);
         };
+        // If ad banner gives some currency
         _bannerView.OnAdPaid += (AdValue adValue) =>
         {
             Debug.Log(String.Format("Banner view paid {0} {1}.",
                 adValue.Value,
                 adValue.CurrencyCode));
         };
+        // For ad impressions 
         _bannerView.OnAdImpressionRecorded += () =>
         {
             Debug.Log("Banner view recorded an impression.");
         };
+        // When the ad is clicked
         _bannerView.OnAdClicked += () =>
         {
             Debug.Log("Banner view was clicked.");
         };
+        // When the banner content is opened
         _bannerView.OnAdFullScreenContentOpened += () =>
         {
             Debug.Log("Banner view full screen content opened.");
         };
+        // When the banner content is closed
         _bannerView.OnAdFullScreenContentClosed += () =>
         {
             Debug.Log("Banner view full screen content closed.");
         };
     }
 
-    /// <summary>
     /// Destroys the banner view.
-    /// </summary>
     public void DestroyAd()
     {
+        //Checks if a banner view object currently exists. If so, destroy it
         if (_bannerView != null)
         {
             Debug.Log("Destroying banner view.");
@@ -134,6 +138,6 @@ public class GoogleMobileAdsDemoScript : MonoBehaviour
     private void OnButtonClick()
     {
         DestroyAd();
-        gameObject.SetActive(false);
+        gameObject.SetActive(false); //Disable the button after destroying the banner
     }
 }

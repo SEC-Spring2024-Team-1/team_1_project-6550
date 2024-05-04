@@ -4,15 +4,17 @@ using UnityEngine;
 using TMPro;
 using System.IO;
 
+//This script is called when the user reaches the score scene, it displays their
+//stats for the game they just finished
 public class getScore : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public TextMeshProUGUI showScore;
-    private string userName;
+    public TextMeshProUGUI showScore; //Holds the stats for the current game
+    private string userName; //the user name, passed around in the script
     void Start()
     {
-        Debug.Log("Inside getScore");
+        Debug.Log("Inside getScore"); //to test the script is starting
 
         if (showScore != null)
         {
@@ -22,11 +24,14 @@ public class getScore : MonoBehaviour
             string deviceID = SystemInfo.deviceUniqueIdentifier;
             Debug.Log("Device ID: " + deviceID);
 
+            //Find the user name in the contents of the "userprofile.txt" file
             string userProfilePath = Path.Combine(currentDirectory, "userProfile.txt");
             GetUserName(userProfilePath, deviceID);
 
+            //If the output.txt file is found
             if (File.Exists(filePath))
             {
+                // Split the entries by rows
                 string fileContent = File.ReadAllText(filePath);
 
                 // Split the data by commas
@@ -61,14 +66,17 @@ public class getScore : MonoBehaviour
         }
     }
 
+    //Find the user name for the current user for reference
     void GetUserName(string filePath, string searchDeviceID)
     {
         Debug.Log("Inside getScore");
         // Initialize userName as "null" to ensure it has a value even if the file doesn't exist or the ID isn't found
         userName = "null";
 
+        //if the userprofiles.txt is found
         if (File.Exists(filePath))
         {
+            //Split entries by rows
             string[] lines = File.ReadAllLines(filePath);
             Debug.Log("Lines from userProfile: "+lines);
 

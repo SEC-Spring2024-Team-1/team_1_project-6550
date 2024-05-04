@@ -12,49 +12,56 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Pcg;//Implementing NUGET package for random number generator
 
+//This script manages the main game functionality. It runs when the play button in the main screen is tapped.
+//It generates a random addition math question for the user, along with three answer buttons. Two of these buttons
+//contain the wrong answer, one the right answer. The question is graphically represented by two colored cat variants
+//in red and blue. When tapping an answer button, the user is given positive or negative feedback depending 
+//on whether the correct or incorrect answer was chosen.
+//The game finished when the user answers the target number of questions indicated by the score counter
+
 public class MathGame : MonoBehaviour
 {
-    public Text questionText;
-    public Button[] answerButtons;
-    public Text questionCounterText;
-    public GameObject Blurbackground;
+    public Text questionText; //holds the text for the current question, older variable
+    public Button[] answerButtons; //all three of the answer buttons on the bottom
+    public Text questionCounterText; //holds text for current question, newer variable
+    public GameObject Blurbackground; //GameObject that allows blurring of background
     public GameObject pauseMenu; // Add reference to the pause menu panel
-    public GameObject correctAnswerPrompt;
-    public GameObject wrongAnswerPrompt;
-    public GameObject problemQuestionCanvas;
-    public GameObject[] catUnits;
+    public GameObject correctAnswerPrompt; //GameObject that is active when the correct answer is chosen
+    public GameObject wrongAnswerPrompt; //GameObject that is active when incorrect answer is chosen
+    public GameObject problemQuestionCanvas; //GameObject that hosts the question text displayed
+    public GameObject[] catUnits; //GameObjects representing the Cats on the screen
     public Vector3[] startPositions; // Animation Functionality (off screen position)
-    public Vector3[] targetPositions;
+    public Vector3[] targetPositions; //Animation Functionality (final screen position)
     public float speed = 0f; // Animation Functionality: Speed at which the cat moves
     public GameObject catContainer; // Animation Functionality: Assign this in the Inspector
-    public AudioSource correctAnswerSound;
-    public AudioSource wrongAnswerSound;
-    public AudioSource correctSound;
-    public AudioSource wrongSound;
-    public GameObject[] allCats;
-    public GameObject HappyCat_0;
-    public GameObject SadCat_1;
+    public AudioSource correctAnswerSound; //Happy audio voice, on correct answer
+    public AudioSource wrongAnswerSound; //Sad audio voice, on incorrect answer
+    public AudioSource correctSound; //Happy sound, on correct answer
+    public AudioSource wrongSound; //Sad sound, on incorrect answer
+    public GameObject[] allCats; //New Objects representing updated Cat models
+    public GameObject HappyCat_0; //Object representing happy cat animation
+    public GameObject SadCat_1; //Object representing sad cat animation
 
 
-    private Button correctButton;
+    private Button correctButton; // Correct answer button
     private Color defaultButtonColor = Color.white; // The default color for buttons
     private Color correctButtonColor = Color.green; // The color for correct answers
     private Color incorrectButtonColor = Color.red; // The color for incorrect answers
     private Vector3 offScreenPosition = new Vector3(-10f, 0f, 0f); // Animation Functionality: Example off-screen position
 
-    private int questionCounter = 0;
-    private bool quizCompleted = false;
+    private int questionCounter = 0; //Keeps track of total questions asked so far
+    private bool quizCompleted = false; //Flag to indicate if game is finished
     private bool gamePaused = false; // Add variable to track game pause state
-    private int correctAnswers = 0;
-    private int totalQuestions = 15;
-    private float rate;
-    private float accuracy;
-    private float startTime;
-    private float endTime;
-    private float totalTime;
-    private string userName;
+    private int correctAnswers = 0; //Total correct answers
+    private int totalQuestions = 15; //Target number of questions
+    private float rate; //Rate of how fast questions were answers / minutes
+    private float accuracy; //Accuracy percentage of correct answers
+    private float startTime; //Time when starting game
+    private float endTime;  //Time when finishing current game
+    private float totalTime; //Total time spent in current run
+    private string userName; //User name of current user
     private bool buttonsRespondingToInput = true; // Flag to track whether buttons should respond to input
-    private PcgRandom randomGenerator;
+    private PcgRandom randomGenerator; //NUGET package library used to generate random numbers at indicated range
 
     public AudioSource backgroundMusic; // Reference to the background music AudioSource
     public Button musicToggleButton; // Reference to the button that toggles the background music
@@ -72,11 +79,13 @@ public class MathGame : MonoBehaviour
     void Start()
     {
         randomGenerator = new PcgRandom(); // Initialize the PcgRandom generator from Nuget package
-        InitializeCats();
-        GenerateQuestion();
+        InitializeCats(); //Initialize the Cat Units used for the question
+        GenerateQuestion(); //Generate random addition question
         UpdateMusicButtonSprite(); // Set the initial sprite and color of the button
 
     }
+
+    //To display the cats during the problems on the screen
     void DisplayCatsForQuestion(int num1, int num2)
     {
         // Deactivate all cats initially
@@ -113,28 +122,34 @@ public class MathGame : MonoBehaviour
         }
     }
 
+
+    //Generate a random math question using NUGET math functions
     void GenerateQuestion()
     {
 
         if (!quizCompleted && !gamePaused) // Check if the quiz is not completed and the game is not paused
         {
-            HappyCat_0.SetActive(false);
-            SadCat_1.SetActive(false);
+            HappyCat_0.SetActive(false); //Deactivate happy cat animation
+            SadCat_1.SetActive(false); //Deactivate sad cat animation
+            
             // Increment question counter
             questionCounter++;
 
-            // Generate random numbers for the addition question from NuGet package
+            // Generate random numbers for the addition question from Pcg NUGET package
             int num1 = randomGenerator.Next(1, 6); // Generates a random number between 1 and 6 
             int num2 = randomGenerator.Next(1, 3); // Generates a random number between 1 and 3
 
-            BasicMathsFunctions math = new BasicMathsFunctions(); // Instantiate BasicMathsFunctions from NUGET package
+            // Instantiate BasicMathsFunctions from ClassLibrary1NUGET package
+            BasicMathsFunctions math = new BasicMathsFunctions(); 
             int answer = (int)math.Addition(num1, num2); // Call the Addition method
 
             //DisplayCatsForQuestion(num1, num2);
             ActivateCats(num1, num2);
 
+            //Check if target number of questions has been reached
             if (questionCounter <= totalQuestions)
             {
+                //Update question counter
                 questionCounterText.text = $"{questionCounter} / {totalQuestions}";
                 // Display the question
                 questionText.text = num1 + " + " + num2 + "= ?";
@@ -147,7 +162,7 @@ public class MathGame : MonoBehaviour
             else
             { 
                 quizCompleted = true;
-                LoadShowScoreScene();// Load the "showScore" scene
+                LoadShowScoreScene(); //Load the "showScore" scene
             }
 
             // Reset the flag to allow button input for the new question
@@ -156,38 +171,44 @@ public class MathGame : MonoBehaviour
             // List to store wrong answers
             List<int> wrongAnswers = new List<int>();
 
-            // Generate random answer options
-            int correctButtonIndex = UnityEngine.Random.Range(0, answerButtons.Length);
+            // Generate random answer options using Pcg NUGET package
+            int correctButtonIndex = randomGenerator.Next(0, answerButtons.Length);
 
             for (int i = 0; i < answerButtons.Length; i++)
             {
+                //Activate answer buttons if target goal hasn't been reached yet
                 if (questionCounter <= totalQuestions)
                 {
                     answerButtons[i].gameObject.SetActive(true); // Show answer buttons for first 3 questions
                 }
                
 
+                //If this answer button is the one denoted as the correct answer
                 if (i == correctButtonIndex)
                 {
-                    answerButtons[i].GetComponentInChildren<Text>().text = answer.ToString();
+                    answerButtons[i].GetComponentInChildren<Text>().text = answer.ToString(); //get correct answer text
                     answerButtons[i].onClick.RemoveAllListeners(); // Remove previous listeners
-                    correctButton = answerButtons[i];
-                    answerButtons[i].onClick.AddListener(CorrectAnswer);
+                    correctButton = answerButtons[i]; //set this button as the correct one
+                    answerButtons[i].onClick.AddListener(CorrectAnswer); //add listener for correct answers
                 }
                 else
                 {
-                    int wrongAnswer = UnityEngine.Random.Range(answer / 2, answer + 3); // Change the range as per your requirement
+                    // Generate random incorrect answer options using Pcg NUGET package
+                    // Change the range as per your requirement
+                    int wrongAnswer = randomGenerator.Next(answer / 2, answer + 3); 
                     while (wrongAnswers.Contains(wrongAnswer) || wrongAnswer == answer)
                     {
-                        wrongAnswer = UnityEngine.Random.Range(answer / 2, answer + 3);
+                        // Generate random incorrect answer options using Pcg NUGET package
+                        wrongAnswer = randomGenerator.Next(answer / 2, answer + 3);
                     }
                     wrongAnswers.Add(wrongAnswer); // Add wrong answer to the list
-                    answerButtons[i].GetComponentInChildren<Text>().text = wrongAnswer.ToString();
+                    answerButtons[i].GetComponentInChildren<Text>().text = wrongAnswer.ToString(); //add incorrect answer text
                     answerButtons[i].onClick.RemoveAllListeners(); // Remove previous listeners
-                    answerButtons[i].onClick.AddListener(WrongAnswer);
+                    answerButtons[i].onClick.AddListener(WrongAnswer); //add listener for the incorrect answer(s)
                 }
             }
 
+            //Check if target goal reached
             if (questionCounter > totalQuestions)
             {
                 quizCompleted = true;
@@ -197,16 +218,22 @@ public class MathGame : MonoBehaviour
                 accuracy = Mathf.Round(accuracy * 100) / 100; // Round accuracy to two decimal places
                 rate = (totalQuestions / totalTime) * 60f;
 
-                string currentDirectory = Application.persistentDataPath; // Assumes the code file is in the "Assets" directory
+                // Assumes the code file is in the "Assets" directory
+                string currentDirectory = Application.persistentDataPath; 
                 string filePath = Path.Combine(currentDirectory, "showScore.txt");
                 Debug.Log($"File Path: {filePath}");
 
+                //Assumes the profile file is in the "Assets" directory
                 string userProfilePath = Path.Combine(currentDirectory, "userProfile.txt");
                 string deviceID = SystemInfo.deviceUniqueIdentifier;
+                
+                //Find username of current user on this device
                 GetUserName(userProfilePath, deviceID);
 
+                //Stats to be written to file
                 string csvContent = $"{totalQuestions},{correctAnswers},{accuracy:F2},{rate:F2}";
 
+                //try to list all lines in the score files
                 try
                 {
                     File.WriteAllText(filePath, csvContent);
@@ -221,9 +248,9 @@ public class MathGame : MonoBehaviour
                 string currentDirectory1 = Application.persistentDataPath; // Assumes the code file is in the "Assets" directory
                 string filePath1 = Path.Combine(currentDirectory1, "userProgress.txt");
                 Debug.Log($"File Path: {filePath1}");
-
                 Debug.Log("Device ID: " + deviceID);
 
+                //Information to be written to file
                 string csvContent1 = $"{deviceID},{userName},{totalQuestions},{correctAnswers},{accuracy:F2},{rate:F2}\n"; // Add newline character
 
                 try
@@ -235,29 +262,40 @@ public class MathGame : MonoBehaviour
                     Debug.LogError($"Error writing to file: {e.Message}");
                 }
 
+                //Send data to Azure SQL DB using AZURE SERVERLESS FUNCTION API call
                 SendProgressData();
             }
         }
     }
 
+    //This function send the user name, device id, correct answers, accuracy, and rate information
+    //to the Azure SQL DB being used for this project. It does this by using an
+    //AZURE SERVERLESS FUNCTION API call
     private async Task SendProgressData()
     {
+        //Getting the api call information, for user name, device id, correct answers, accuracy, rate 
         string deviceID = SystemInfo.deviceUniqueIdentifier;
         string code = "JxhjZHx_aKZsMmul6hr5NyxikZoxw-4M2uHi4VRD0ke_AzFuJ0rrXQ==&clientId=default";
         string url = $"https://mathgame0305.azurewebsites.net/api/game/progress?code={code}&device_id={deviceID}&username={userName}&questions={totalQuestions}&correct_answers={correctAnswers}&accuracy={accuracy:F2}&rate={rate:F2}";
 
+        //Sending data to the DB
         using (HttpClient client = new HttpClient())
         {
+            //Using POST call
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, url);
             HttpResponseMessage response = await client.SendAsync(request);
             response.EnsureSuccessStatusCode();
+            
+            //Response is sent back
             string responseString = await response.Content.ReadAsStringAsync();
 
+            //If a successful response from POST
             if (response.IsSuccessStatusCode)
             {
                 responseString = await response.Content.ReadAsStringAsync();
                 Debug.Log("Progress data sent: " + responseString);
             }
+            //If an unsuccessful response from POST
             else
             {
                 string errorResponse = await response.Content.ReadAsStringAsync();
@@ -271,37 +309,51 @@ public class MathGame : MonoBehaviour
         SceneManager.LoadScene("showScore"); // Load the scene with the name "showScore"
     }
 
+
+    //Activates when the user selects the wrong answer
     void CorrectAnswer()
     {
         if (!buttonsRespondingToInput)
             return;
         Debug.Log("Correct!");
-        correctAnswers++;
+        correctAnswers++; //Incrememnts correct answer score
+
+        //Highlights the correct answer button with green
         HighlightButton(correctButton, correctButtonColor);
-        // Stop the prerecorded clip for the addition question when the player selects an answer
+
+        // Stop the prerecorded voice clip for the addition question when the player selects an answer
         AnswerSelected();
+
+        //Starts the correct answer prompt for two seconds to allow for feedback
         StartCoroutine(ShowPrompt(correctAnswerPrompt));
-        correctAnswerSound.Play();
-        correctSound.Play();
+        correctAnswerSound.Play(); //happy voice response
+        correctSound.Play(); //happy sound feedback
         buttonsRespondingToInput = false; // Disable further button input
-        HappyCat_0.SetActive(true);
+        HappyCat_0.SetActive(true); //play happy cat animation
     }
 
+    //Activates when the user selects the wrong answer
     void WrongAnswer()
     {
         if (!buttonsRespondingToInput)
             return;
         Debug.Log("Wrong!");
-        HighlightButton(correctButton, correctButtonColor);
+        HighlightButton(correctButton, correctButtonColor); //highlight the correct answer for the user
+        //Indicate the button(s) with the incorrect answers
         Button incorrectButton = (Button)UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.GetComponent<Button>();
-        HighlightButton(incorrectButton, incorrectButtonColor);
-        // Stop the prerecorded clip for the addition question when the player selects an answer
+        
+        //highlight them with a different color to indicate they are wrong
+        HighlightButton(incorrectButton, incorrectButtonColor); 
+        
+        // Stop the prerecorded voice clip for the addition question when the player selects an answer
         AnswerSelected();
+
+        //Start the wrong answer prompt temporarily, for two second (to allow feedback)
         StartCoroutine(ShowPrompt(wrongAnswerPrompt));
-        wrongAnswerSound.Play();
-        wrongSound.Play();
+        wrongAnswerSound.Play(); //sad voice clip response
+        wrongSound.Play(); //sad sound response
         buttonsRespondingToInput = false; // Disable further button input
-        SadCat_1.SetActive(true);
+        SadCat_1.SetActive(true); //play sad cat animation
     }
 
     // Helper method to enable/disable button input
@@ -310,6 +362,7 @@ public class MathGame : MonoBehaviour
         buttonsRespondingToInput = responding;
     }
 
+    //Change the color of a button temporarily
     void HighlightButton(Button button, Color color)
     {
         Image buttonImage = button.GetComponent<Image>();
@@ -320,6 +373,7 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Reset the answer button colors after answering
     IEnumerator ResetButtonColor(Image buttonImage)
     {
         if (quizCompleted == true)
@@ -327,7 +381,7 @@ public class MathGame : MonoBehaviour
             yield return new WaitForSeconds(0.0f);
         }
         yield return new WaitForSeconds(1.0f); // Adjust the delay time as needed
-        buttonImage.color = defaultButtonColor;
+        buttonImage.color = defaultButtonColor; //go back to default color scheme
     }
 
     // Helper method to set interactable state of an array of buttons
@@ -339,14 +393,15 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Pause the game upon hitting the pause button in the top corner
     public void PauseGame()
     {
-        gamePaused = true;
-        pauseMenu.SetActive(true);
+        gamePaused = true; //set true to make sure game is paused
+        pauseMenu.SetActive(true); //bring up the pause menu
         //problemQuestionCanvas.SetActive(false);
         Time.timeScale = 0f; // Effectively pauses the game
-        SetButtonsInteractable(answerButtons, false);
-        Blurbackground.SetActive(true);
+        SetButtonsInteractable(answerButtons, false); //make sure answer buttons can't be interacted with
+        Blurbackground.SetActive(true); //blur the background aside from the pause menu
 
         // Deactivate cats directly in this method
         //foreach (GameObject cat in catUnits)
@@ -369,18 +424,19 @@ public class MathGame : MonoBehaviour
         Time.timeScale = 0f; // added for animation functionality 
     }
 
-
+    //Resume the game from the pause menu
     public void ResumeGame()
     {
-        gamePaused = false;
-        pauseMenu.SetActive(false);
-        problemQuestionCanvas.SetActive(true);
+        gamePaused = false; //unpause the game
+        pauseMenu.SetActive(false); //remove the pause menu
+        problemQuestionCanvas.SetActive(true); //reset the problem canvas for questions
         Time.timeScale = 1f;
-        ReactivateCats();
-        SetButtonsInteractable(answerButtons, true);
-        Blurbackground.SetActive(false);
+        ReactivateCats(); //reactive any cat units that were disabled during pausing
+        SetButtonsInteractable(answerButtons, true); //make the answer buttons interactable again
+        Blurbackground.SetActive(false); //stop blurring the background
     }
 
+    //Reactivate the Cat units that were disabled temporarily
     void ReactivateCats()
     {
         //foreach (GameObject cat in catUnits)
@@ -403,16 +459,16 @@ public class MathGame : MonoBehaviour
     }
 
 
-
+    //Restart the game from the pause menu
     public void RestartGame()
     {
-        questionCounter = 0;
-        quizCompleted = false;
-        gamePaused = false;
-        pauseMenu.SetActive(false);
-        problemQuestionCanvas.SetActive(true);
+        questionCounter = 0; //reset the question counter
+        quizCompleted = false; //set false so game is reset
+        gamePaused = false; //unpause the game
+        pauseMenu.SetActive(false); //remove the pause menu
+        problemQuestionCanvas.SetActive(true); // reset question canvas to display question
         Time.timeScale = 1f;
-        Blurbackground.SetActive(false);
+        Blurbackground.SetActive(false); //stop blurring the background during pause
 
         //foreach (GameObject cat in catUnits)
         foreach (GameObject cat in allCats)
@@ -425,6 +481,7 @@ public class MathGame : MonoBehaviour
         GenerateQuestion(); // This should include activating the necessary cats
     }
 
+    //Quit the game from the pause menu
     public void Quit()
     {
         gamePaused = false;
@@ -433,6 +490,9 @@ public class MathGame : MonoBehaviour
 
         SceneManager.LoadScene("LoadingScreen"); // Load the main menu scene
     }
+
+    //Set the correct or incorrect answer prompts active for two seconds
+    //Then disable and move onto the next question until the game ends
     IEnumerator ShowPrompt(GameObject prompt)
     {
         if (quizCompleted == true)
@@ -449,6 +509,7 @@ public class MathGame : MonoBehaviour
     // Added animation functionality starts here 
     void Update()
     {
+        //Active the cat walking animations to target destination
         for (int i = 0; i < catUnits.Length; i++)
         {
             GameObject cat = catUnits[i];
@@ -459,18 +520,22 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Start moving the Cats to their target positions
     public void MoveCatToTarget(int catIndex)
     {
+        //If for some reason, the index sent to this function is out of range of total cat units available
         if (catIndex < 0 || catIndex >= catUnits.Length || catIndex >= targetPositions.Length)
         {
             Debug.LogError("Index out of range.", this);
             return;
         }
 
+        //Take note of position of each cat unit. Start moving it towards target position
         GameObject cat = catUnits[catIndex];
         Vector3 targetPos = targetPositions[catIndex];
         cat.transform.position = Vector3.MoveTowards(cat.transform.position, targetPos, speed * Time.deltaTime);
 
+        //Set the walking animation active until they reach target position
         Animator animator = cat.GetComponent<Animator>();
         if (animator != null)
         {
@@ -479,6 +544,7 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Restart the cat animations if needed
     void ResetCatPositionsAndAnimations()
     {
         for (int i = 0; i < catUnits.Length; i++)
@@ -495,11 +561,14 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Begin moving cats off the screen as needed
     public void MakeCatsWalkOff()
     {
         StartCoroutine(MoveCatsOffScreen());
     }
 
+    //Moves each cat that is active off the screen
+    //No longer used, but kept for reference
     private IEnumerator MoveCatsOffScreen()
     {
         foreach (GameObject cat in catUnits)
@@ -511,6 +580,8 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Used to move the cats off the screen when the question changes.
+    //No longer used, but kept for refernce
     private IEnumerator MoveCatOffScreen(Transform catTransform)
     {
         Vector3 offScreenPosition = new Vector3(-10f, 0f, 0f);
@@ -521,6 +592,9 @@ public class MathGame : MonoBehaviour
         }
         catTransform.gameObject.SetActive(false);
     }
+
+    //Find the positions of each Cat when the question appears. 
+    //No longer used, but kept for reference
     void InitializeCatsAtStartPositions()
     {
         for (int i = 0; i < catUnits.Length; i++)
@@ -536,11 +610,13 @@ public class MathGame : MonoBehaviour
         }
     }
 
+    //Find Username from among the .txt files locally
     void GetUserName(string filePath, string searchDeviceID)
     {
         Debug.Log("Inside getScore");
+        
         // Initialize userName as "null" to ensure it has a value even if the file doesn't exist or the ID isn't found
-        userName = "null";
+        userName = "KittenMath";
 
         if (File.Exists(filePath))
         {
@@ -570,6 +646,8 @@ public class MathGame : MonoBehaviour
 
         // At this point, userName is either the name found in the file or "null"
     }
+
+    //Makes sure all Cats are disabled upon starting
     void InitializeCats()
     {
         foreach (GameObject cat in allCats)
@@ -577,6 +655,8 @@ public class MathGame : MonoBehaviour
             cat.SetActive(false); // Start with all cats deactivated
         }
     }
+    
+    //Will update the Cats based on the question text
     public void UpdateCatSpawnBasedOnQuestion(string questionText)
     {
         // Example questionText: "6 + 3 = ?"
@@ -607,6 +687,8 @@ public class MathGame : MonoBehaviour
             }
         }
     }
+
+    //Will pause the background music. When unpaused, will play it from the same moment it was paused
     public void ToggleBackgroundMusic()
     {
         if (isMusicOn)
@@ -624,10 +706,13 @@ public class MathGame : MonoBehaviour
         UpdateMusicButtonSprite(); // Update button sprite and color
     }
 
+    //Changes the music icon on the pause menu when it is tapped
     void UpdateMusicButtonSprite()
     {
         musicToggleButton.image.sprite = isMusicOn ? musicOnSprite : musicOffSprite;
     }
+
+    //Create audio the reads out math question
     private void PlayMathQuestionAudio(int num1, int num2)
     {
         List<AudioSource> audioSources = new List<AudioSource>();
@@ -645,7 +730,8 @@ public class MathGame : MonoBehaviour
     // Coroutine to play audio sources in sequence
     private IEnumerator PlayAudioSourcesInSequence(AudioSource[] audioSources)
     {
-        foreach (AudioSource audioSource in audioSources)
+        //All voice clips contained in array
+        foreach (AudioSource audioSource in audioSources) 
         {
             if (answerSelected)
             {
@@ -656,7 +742,9 @@ public class MathGame : MonoBehaviour
             if (audioSource != null && audioSource.clip != null)
             {
                 audioSource.Play();
-                while (audioSource.isPlaying)
+                
+                //Don't allow another voice clip to play while the current is playing
+                while (audioSource.isPlaying) 
                 {
                     yield return null;
                 }
@@ -668,7 +756,7 @@ public class MathGame : MonoBehaviour
         }
     }
 
-    // Helper method to get AudioSource for numbers 0 through 6
+    // Helper method to get AudioSource for voice clip of numbers 0 through 6
     private AudioSource GetNumberAudioSource(int number)
     {
         if (number >= 0 && number <= 6)

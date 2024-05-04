@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//This script plays when the user click on the profile button in the top corner 
+//of the main screen. This allows them to open and close the user profile panel
 public class ProfileMenu : MonoBehaviour
 {
-    public GameObject profileMenuPanel;
+    public GameObject profileMenuPanel; //refers to the profile panel object
 
     private void Start()
     {

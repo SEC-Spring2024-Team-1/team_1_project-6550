@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+//This script is attached to a game object to interact with the 
+// AdManager persistent game objet and close the ad banner at will
 public class AdToggleButton : MonoBehaviour
 {
     public Button toggleButton; // Reference to the button component

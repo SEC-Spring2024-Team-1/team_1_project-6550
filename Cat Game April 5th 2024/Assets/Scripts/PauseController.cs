@@ -1,8 +1,10 @@
 using UnityEngine;
 
+//Intended to allow the user to pause the game with a key press.
+//Not used because the user won't have access to the p key on a phone
 public class PauseController : MonoBehaviour
 {
-    public GameObject pauseMenu;
+    public GameObject pauseMenu; //refers to the pause menu panel
 
     private bool isPaused = false;
 
